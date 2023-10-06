@@ -35,7 +35,7 @@ def rainbow_trigger(message):
 async def send_welcome(message: types.Message):
    await message.answer("триггерюсь на люсю...")
    await message.answer_sticker(sticker='CAACAgIAAxkBAAEmnFRlH8-sZCVjHbQBC5RyB0pf5IA99AACDDYAAihN4UhiZoZ0MM9NDDAE') 
-   await message.answer("...и цветовое окрашивание")
+   await message.answer("...и цветовое решение")
    await message.answer_sticker(sticker='CAACAgIAAxkBAAEmnGplH9IU89UvFSCAhITHHCW880I0wgACeSYAAmyW0UhatEIu5aHXEjAE') 
 
 
