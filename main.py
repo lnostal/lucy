@@ -59,7 +59,7 @@ async def send(message: types.Message):
 @dp.message_handler() #Создаём новое событие, которое запускается в ответ на любой текст, введённый пользователем.
 async def echo(message: types.Message): #Создаём функцию с простой задачей — отправить обратно тот же текст, что ввёл пользователь.
    if c.trigger(message.text):
-      await message.answer_sticker(sticker='CAACAgIAAxkBAAEmnFRlH8-sZCVjHbQBC5RyB0pf5IA99AACDDYAAihN4UhiZoZ0MM9NDDAE')   
+      await message.answer_sticker(sticker=c.random_sticker())   
 
 if __name__ == '__main__':
    executor.start_polling(dp, skip_updates=True)

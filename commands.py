@@ -1,5 +1,7 @@
 import actions as a 
 import main
+import random
+
 
 # ----- help -----
 
@@ -132,3 +134,16 @@ def trigger(message):
 
    return answer
 
+# ----- random_sticker -----
+
+def random_sticker():
+
+    stickers = [
+        'CAACAgIAAxkBAAEmnFRlH8-sZCVjHbQBC5RyB0pf5IA99AACDDYAAihN4UhiZoZ0MM9NDDAE',
+        'CAACAgIAAxkBAAEoDbBlbYY6EIZNi7skrkquYQWApeL3fwACOTsAApP3SUsYbgzulIOKWzME',
+        'CAACAgIAAxkBAAEoDbJlbYY9nBDYiZY_RTmaWVi5CPg-NgACeCkAAo_pAUr5r4KMRPYXcTME',
+        'CAACAgIAAxkBAAEoDbRlbYZRdbpAdYRTtsQ8PVT_zL3EEAACWysAAqYVAAFKL1bKNHUIlYAzBA',
+        'CAACAgIAAxkBAAEoDbdlbYZZcjUaO2qcgEk0kUC0W_qTuAACeSAAAgSGCEocMJB0qFrXgDME',
+        'CAACAgIAAxkBAAEoDbplbYZbgdUHTL_46KsR3GH1o5g61wACzyEAAoPDCUrEcMCwm6-mczME']
+    
+    return random.choice(stickers)
