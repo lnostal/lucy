@@ -30,9 +30,9 @@ class lucy_random_actions(str, Enum):
 
 class user_actions(str, Enum):
     pet = generate_action(pet_lucy_name, 'погладить')
-    roar = generate_action(pet_lucy_name, 'крикнуть на')
+    yell = generate_action(pet_lucy_name, 'крикнуть на')
     purr_pet = 'почесать за ушком'
-    punish = generate_action(pet_lucy_name, 'ругать')
+    scold = generate_action(pet_lucy_name, 'ругать')
     clean = 'убрать какашки'
     play = 'поиграть дразнилкой с ᴫюсей'
     feed = generate_action(pet_lucy_name, 'покормить')

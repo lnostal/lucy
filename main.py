@@ -23,17 +23,17 @@ async def send_welcome(message: types.Message):
 async def send(message: types.Message):
       await message.answer(c.pet())
 
-@dp.message_handler(commands=['roar']) 
+@dp.message_handler(commands=['yell']) 
 async def send(message: types.Message):
-      await message.answer(c.roar())
+      await message.answer(c.yell())
 
 @dp.message_handler(commands=['purr_pet']) 
 async def send(message: types.Message):
       await message.answer(c.purr_pet())
 
-@dp.message_handler(commands=['punish']) 
+@dp.message_handler(commands=['scold']) 
 async def send(message: types.Message):
-      await message.answer(c.punish())
+      await message.answer(c.scold())
 
 @dp.message_handler(commands=['clean']) 
 async def send(message: types.Message):

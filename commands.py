@@ -44,9 +44,9 @@ def pet():
    message += a.get_reply_action(a.lucy_reply_actions.wanna_pet, a.lucy_reply_actions.not_wanna_pet)
    return message
 
-# ----- roar -----
-def roar():
-   message = to_reply(a.user_actions.roar)
+# ----- yell -----
+def yell():
+   message = to_reply(a.user_actions.yell)
    message += a.get_reply_action(a.lucy_random_actions.angry, a.lucy_reply_actions.ignore, a.lucy_random_actions.poop)
    return message
 
@@ -56,9 +56,9 @@ def pet():
    message += a.get_reply_action(a.lucy_reply_actions.wanna_pet, a.lucy_reply_actions.not_wanna_pet)
    return message
 
-# ----- punish -----
-def punish():
-   message = to_reply(a.user_actions.punish)
+# ----- scold -----
+def scold():
+   message = to_reply(a.user_actions.scold)
    message += a.get_reply_action(a.lucy_reply_actions.not_worry, a.lucy_reply_actions.ignore, a.lucy_random_actions.angry)
    return message
 
