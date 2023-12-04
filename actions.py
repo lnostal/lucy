@@ -1,15 +1,13 @@
 import random
 from datetime import datetime, timedelta
 from enum import Enum
+import main
 
 lucy_name = 'ᴫюся'
 pet_lucy_name = 'ᴫюсю'
 
 def generate_action(action, name=lucy_name):
     return '{} {}'.format(name, action)
-
-poop_count = 0
-
 
 class lucy_random_actions(str, Enum):
     jump = generate_action('прыгнула на колени кому-то из чата')
@@ -57,9 +55,11 @@ class lucy_reply_actions(str, Enum):
 
     ignore = generate_action('равнодушно игнорирует')
 
-def get_reply_action(wanna, not_wanna):
-    actions = [wanna.value, not_wanna.value]
-    return random.choice(actions)
+def get_reply_action(*args):
+    var = random.choice(args)
+    if var == lucy_random_actions.poop:
+        main.poop_count += 1
+    return var.value
 
 def get_action():
     return random.choice(list(lucy_random_actions)).value
@@ -86,4 +86,4 @@ def get_time():
 print(get_action())
 print(get_zoomies_action())
 print(get_user_action())
-print(get_reply_action(lucy_reply_actions.wanna_door, lucy_reply_actions.not_wanna_door))
+print(get_reply_action(lucy_reply_actions.wanna_door, lucy_reply_actions.not_wanna_door, lucy_reply_actions.ignore))
