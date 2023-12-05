@@ -1,5 +1,4 @@
 from aiogram import Bot, Dispatcher, executor, types
-import schedule
 
 import commands
 

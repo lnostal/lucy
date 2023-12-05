@@ -1,5 +1,4 @@
 import actions as a 
-import main
 import random
 import enums as en
 
@@ -128,7 +127,7 @@ class Commands():
 
    # ----- triggers -----
 
-   def trigger(message):  
+   def trigger(self,message):  
       triggers = ["ебать ту люсю", "люся", "люсе", "люсю", "люси"]
 
       text = message.lower()
@@ -146,7 +145,7 @@ class Commands():
       return self.act.get_zoomies_action()
    # ----- random_sticker -----
 
-   def random_sticker():
+   def random_sticker(self):
       stickers = [
          'CAACAgIAAxkBAAEmnFRlH8-sZCVjHbQBC5RyB0pf5IA99AACDDYAAihN4UhiZoZ0MM9NDDAE',
          'CAACAgIAAxkBAAEoDbBlbYY6EIZNi7skrkquYQWApeL3fwACOTsAApP3SUsYbgzulIOKWzME',
