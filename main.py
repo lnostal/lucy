@@ -1,3 +1,5 @@
+import asyncio
+from time import sleep
 from aiogram import Bot, Dispatcher, executor, types
 
 import commands
@@ -41,8 +43,13 @@ async def send(message: types.Message):
       await message.answer(c.play())
 
 @dp.message_handler(commands=['feed']) 
+@dp.async_task
 async def send(message: types.Message):
       await message.answer(c.feed())
+      if (c.not_hungry):
+            time, msg = c.pooped()
+            await asyncio.sleep(time)
+            await message.answer(msg)
 
 @dp.message_handler(commands=['open_door']) 
 async def send(message: types.Message):

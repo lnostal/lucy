@@ -6,6 +6,7 @@ class Commands():
 
    def __init__(self):
       self.act = a.Actions()
+      self.not_hungry = False
       pass
 
 
@@ -97,7 +98,9 @@ class Commands():
    # ----- feed -----
    def feed(self):
       message = self.to_reply(en.User.feed)
-      message += self.act.get_reply_action(en.Lucy_reply.wanna_eat, en.Lucy_reply.not_wanna_eat)
+      action = self.act.get_reply_action(en.Lucy_reply.wanna_eat, en.Lucy_reply.not_wanna_eat)
+      message += action
+      self.not_hungry = action == en.Lucy_reply.wanna_eat
       return message
 
    # ----- open_door -----
@@ -124,6 +127,15 @@ class Commands():
       
       if self.act.poop_count > 20:
          return message + "в чате появился новый коричневый массажный ковер. откуда он здесь и почему так странно пахнет?"
+
+
+   # ----- poop -----
+
+   def pooped(self):
+      self.not_hungry = False
+      self.act.poop_increment()
+      time = self.act.get_poop_time()
+      return time, en.Lucy_random.poop.value
 
    # ----- triggers -----
 

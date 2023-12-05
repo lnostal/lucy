@@ -44,3 +44,10 @@ class Actions():
 
         random_date = start_time + (end_time - start_time) * random.random()
         return random_date
+
+
+#3600 1 час
+#10800
+
+a = random.randint(3600, 10800)
+print(a)
