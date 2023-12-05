@@ -1,5 +1,10 @@
 ## Конфигурация systemd service
 
+```
+pip install aiogram
+pip install schedule
+```
+
 ```bash
 sudo nano /lib/systemd/system/lucy.service
 ```

@@ -1,14 +1,12 @@
 from aiogram import Bot, Dispatcher, executor, types
+import schedule
 
-import actions as a
-import commands as c
+import commands
 
 API_TOKEN = '6507692415:AAFOBIaBXYvhyblm2Xt7vY2lkRsshBdxM_E'
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
-
-poop_count = 0
 
 @dp.message_handler(commands=['help']) 
 async def send(message: types.Message):
@@ -51,7 +49,6 @@ async def send(message: types.Message):
 async def send(message: types.Message):
       await message.answer(c.open_door())
 
-
 @dp.message_handler(commands=['poops']) 
 async def send(message: types.Message):
       await message.answer(c.poops())
@@ -62,4 +59,5 @@ async def echo(message: types.Message): #Создаём функцию с про
       await message.answer_sticker(sticker=c.random_sticker())   
 
 if __name__ == '__main__':
+   c = commands.Commands()
    executor.start_polling(dp, skip_updates=True)
