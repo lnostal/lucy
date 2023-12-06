@@ -18,6 +18,13 @@ async def send_welcome(message: types.Message):
    await message.answer(c.welcome())
    await message.answer_sticker(sticker='CAACAgIAAxkBAAEmnFRlH8-sZCVjHbQBC5RyB0pf5IA99AACDDYAAihN4UhiZoZ0MM9NDDAE') 
 
+@dp.message_handler(commands=['lucy_active'])
+async def send(message: types.Message):
+     await message.answer(c.lucy_act())
+     while (c.lucy_active):
+          await message.answer(c.act.get_action())
+          await asyncio.sleep(c.zoomies_interval())
+
 @dp.message_handler(commands=['pet']) 
 async def send(message: types.Message):
       await message.answer(c.pet())

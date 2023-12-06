@@ -7,6 +7,7 @@ class Commands():
    def __init__(self):
       self.act = a.Actions()
       self.not_hungry = False
+      self.lucy_active = False
       pass
 
 
@@ -19,9 +20,11 @@ class Commands():
 
 --вы находитесь здесь--
 """
+
       for action in list(en.User):
          description += '\n/{} -- {}'.format(action.name, action.value)
 
+      description += "\n/lucy_active -- включить/выключить случайные кошачьи действия"
       description += "\n/poops -- узнать количество какашек в чате\n\n💩 какашек сейчас: {} 💩".format(self.act.poop_count)
 
       return description
@@ -146,6 +149,18 @@ class Commands():
    def poop_interval(self):
       #return random.randint(1, 5) #для тестов
       return random.randint(3600, 10800) # в промежутке от часа до трех
+   
+   def zoomies_interval(self):
+      #return random.randint(1, 5) #для тестов
+      return random.randint(1800,3600)
+
+   def lucy_act(self):
+      self.lucy_active = not self.lucy_active
+
+      if self.lucy_active:
+         return "периодически кошечка будет напоминать о себе"
+      
+      return "кошечка ушла спать в свой домик и больше не будет шуршать по чату"
 
    def pooped(self):
       self.not_hungry = False
