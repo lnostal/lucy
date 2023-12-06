@@ -83,8 +83,20 @@ class Commands():
       if self.act.poop_count == 0:
          return message + "а убирать-то нечего!"
       
-      self.act.poop_remove()
-      message += "какашки успешно убраны\n"
+      if self.act.poop_count == 1:
+         self.act.poop_remove()
+         message += "какашки успешно убраны\n"
+
+      if self.act.poop_count >= 2:
+         chances =  [True, True, False]
+         chance = random.choice(chances)
+         if not chance:
+            self.act.poop_count = self.act.poop_count - int(self.act.poop_count/2)
+            message += "половина какашек просыпалась мимо пакетика\n"
+         else:
+            message += "какашки успешно убраны\n"
+            self.act.poop_remove()
+      
       message += self.act.get_reply_action(en.Lucy_reply.worry, en.Lucy_reply.not_worry, en.Lucy_reply.ignore)
       return message
 
@@ -132,7 +144,8 @@ class Commands():
    # ----- poop -----
 
    def poop_interval(self):
-      return random.randint(3600, 10800) # в промежутке от часа до трехv
+      #return random.randint(1, 5) #для тестов
+      return random.randint(3600, 10800) # в промежутке от часа до трех
 
    def pooped(self):
       self.not_hungry = False
