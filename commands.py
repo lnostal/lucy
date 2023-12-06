@@ -131,11 +131,23 @@ class Commands():
 
    # ----- poop -----
 
+   def poop_interval(self):
+      return random.randint(3600, 10800) # в промежутке от часа до трехv
+
    def pooped(self):
       self.not_hungry = False
-      self.act.poop_increment()
-      time = self.act.get_poop_time()
-      return time, en.Lucy_random.poop.value
+
+      poops = random.randint(1,4)
+
+      for _ in range(poops):
+         self.act.poop_increment()
+
+      msg = "не так давно вы кормили кошечку\n"
+      msg += en.Lucy_random.poop.value
+      msg += "\n\nстало на {} какашек больше\n".format(poops)
+      msg += self.poops()
+
+      return msg
 
    # ----- triggers -----
 

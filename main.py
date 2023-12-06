@@ -47,9 +47,8 @@ async def send(message: types.Message):
 async def send(message: types.Message):
       await message.answer(c.feed())
       if (c.not_hungry):
-            time, msg = c.pooped()
-            await asyncio.sleep(time)
-            await message.answer(msg)
+            await asyncio.sleep(c.poop_interval())
+            await message.answer(c.pooped())
 
 @dp.message_handler(commands=['open_door']) 
 async def send(message: types.Message):
