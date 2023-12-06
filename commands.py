@@ -10,6 +10,11 @@ class Commands():
       self.lucy_active = False
       pass
 
+   # ----- money -----
+#https://www.tinkoff.ru/cf/QjoW9LVrQ7
+   def money(self):
+      return "покормить кошку (на оплату сервера):\nhttps://www.tinkoff.ru/cf/QjoW9LVrQ7"
+
 
    # ----- help -----
 
@@ -26,7 +31,9 @@ class Commands():
 
       description += "\n/lucy_active -- включить/выключить случайные кошачьи действия"
       description += "\n/poops -- узнать количество какашек в чате\n\n💩 какашек сейчас: {} 💩".format(self.act.poop_count)
-
+      
+      description += "\n" + self.money()
+         
       return description
 
 
