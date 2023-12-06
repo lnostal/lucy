@@ -32,7 +32,7 @@ class Commands():
       description += "\n/lucy_active -- включить/выключить случайные кошачьи действия"
       description += "\n/poops -- узнать количество какашек в чате\n\n💩 какашек сейчас: {} 💩".format(self.act.poop_count)
       
-      description += "\n" + self.money()
+      description += "\n\n" + self.money()
          
       return description
 
