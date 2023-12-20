@@ -182,6 +182,14 @@ class Commands():
          return random.randint(1, 5) #для тестов
       return random.randint(1800,3600)
 
+   def lucy_actions(self, chat_id):
+      action = self.act.get_action()
+      row = DB(chat_id)
+      if action == en.Lucy_random.poop.value:
+         row.addCurrentPoops(1)
+      
+      return action
+
    def lucy_act(self):
       self.lucy_active = not self.lucy_active
 

@@ -67,7 +67,8 @@ async def send(message: types.Message):
 
 @dp.message_handler()
 async def echo(message: types.Message): 
-      await message.answer_sticker(sticker=c.random_sticker())   
+      if c.trigger(message.text):
+            await message.answer_sticker(sticker=c.random_sticker())   
 
 if __name__ == '__main__':
    c = commands.Commands()
