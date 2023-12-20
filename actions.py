@@ -7,27 +7,13 @@ class Actions():
     def __init__(self):
          self.poop_count = 0
          pass
-    
-    def poop_increment(self):
-        self.poop_count += 1
-    
-    def poop_decrement(self):
-        if self.poop_count > 0:
-            self.poop_count -=1
-    
-    def poop_remove(self):
-        self.poop_count = 0
 
     def get_reply_action(self, *args):
         var = random.choice(args)
-        if var == en.Lucy_random.poop:
-            self.poop_increment()
         return var.value
 
     def get_action(self):
         var = random.choice(list(en.Lucy_random))
-        if var == en.Lucy_random.poop:
-            self.poop_increment()
         return var.value
 
     def get_user_action(self):

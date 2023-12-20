@@ -2,8 +2,7 @@
 
 ```
 pip install aiogram
-pip install schedule
-pip install apscheduler
+pip install peewee
 ```
 
 ```bash

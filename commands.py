@@ -1,5 +1,6 @@
 import actions as a 
 import random
+from db import DB
 import enums as en
 
 class Commands():
@@ -18,7 +19,7 @@ class Commands():
 
    # ----- help -----
 
-   def describe_commands(self):
+   def describe_commands(self, chat_id):
       description = """
 /start\tинфо о чате
 /help\tподсказка
@@ -30,9 +31,9 @@ class Commands():
          description += '\n/{} -- {}'.format(action.name, action.value)
 
       description += "\n/lucy_active -- включить/выключить случайные кошачьи действия"
-      description += "\n/poops -- узнать количество какашек в чате\n\n💩 какашек сейчас: {} 💩".format(self.act.poop_count)
-      
-      description += "\n\n" + self.money()
+
+      row = DB(chat_id)
+      description += "\n/poops -- узнать количество какашек в чате\n\n💩 какашек за все время: {} 💩".format(row.getPoopsByAllTime())
          
       return description
 
@@ -40,7 +41,7 @@ class Commands():
 
    # ----- start -----
 
-   def welcome(self):
+   def welcome(self, chat_id):
       welcome_message = """
 ✨ заведи кошечку в своем чатике ✨
 люся не даст заскучать
@@ -48,12 +49,10 @@ class Commands():
 гайд по чату:
 
 {}
-""".format(self.describe_commands())
+""".format(self.describe_commands(chat_id))
       return welcome_message
 
    def to_reply(self, action):
-      if action == en.Lucy_random.poop:
-         self.act.poop_increment()
       return 'вы попытались ' + action.value + '\n'
 
    # ----- pet -----
@@ -64,9 +63,15 @@ class Commands():
       return message
 
    # ----- yell -----
-   def yell(self):
+   def yell(self, chat_id):
       message = self.to_reply(en.User.yell)
-      message += self.act.get_reply_action(en.Lucy_random.angry, en.Lucy_reply.ignore, en.Lucy_random.poop)
+      action = self.act.get_reply_action(en.Lucy_random.angry, en.Lucy_reply.ignore, en.Lucy_random.poop)
+      message += action
+
+      row = DB(chat_id)
+      if action == en.Lucy_random.poop.value:
+         row.addCurrentPoops(1)
+
       return message
 
    # ----- purr_pet -----
@@ -76,9 +81,15 @@ class Commands():
       return message
 
    # ----- scold -----
-   def scold(self):
+   def scold(self, chat_id):
       message = self.to_reply(en.User.scold)
-      message += self.act.get_reply_action(en.Lucy_reply.not_worry, en.Lucy_reply.ignore, en.Lucy_random.angry, en.Lucy_random.poop)
+      action = self.act.get_reply_action(en.Lucy_reply.not_worry, en.Lucy_reply.ignore, en.Lucy_random.angry, en.Lucy_random.poop)
+      message += action
+
+      row = DB(chat_id)
+      if action == en.Lucy_random.poop.value:
+         row.addCurrentPoops(1)
+
       return message
 
    # ----- purr_pet -----
@@ -88,24 +99,26 @@ class Commands():
       return message
 
    # ----- clean -----
-   def clean(self):
+   def clean(self,chat_id):
+      row = DB(chat_id)
+      poop_count = row.getCurrentPoops()
       message = self.to_reply(en.User.clean)
-      if self.act.poop_count == 0:
+      if poop_count == 0:
          return message + "а убирать-то нечего!"
       
-      if self.act.poop_count == 1:
-         self.act.poop_remove()
+      if poop_count == 1:
+         row.setCurrentPoops(0)
          message += "какашки успешно убраны\n"
-
-      if self.act.poop_count >= 2:
+      elif poop_count >= 2:
          chances =  [True, True, False]
          chance = random.choice(chances)
          if not chance:
-            self.act.poop_count = self.act.poop_count - int(self.act.poop_count/2)
+            poop_count = poop_count - int(poop_count/2)
+            row.setCurrentPoops(poop_count)
             message += "половина какашек просыпалась мимо пакетика\n"
          else:
             message += "какашки успешно убраны\n"
-            self.act.poop_remove()
+            row.setCurrentPoops(0)
       
       message += self.act.get_reply_action(en.Lucy_reply.worry, en.Lucy_reply.not_worry, en.Lucy_reply.ignore)
       return message
@@ -122,7 +135,7 @@ class Commands():
       message = self.to_reply(en.User.feed)
       action = self.act.get_reply_action(en.Lucy_reply.wanna_eat, en.Lucy_reply.not_wanna_eat)
       message += action
-      self.not_hungry = action == en.Lucy_reply.wanna_eat
+      self.not_hungry = action == en.Lucy_reply.wanna_eat.value
       return message
 
    # ----- open_door -----
@@ -132,34 +145,39 @@ class Commands():
       return message
 
    # ----- poops -----
-   def poops(self):
-      message = "{}\nвсего: {}\n".format('💩'*self.act.poop_count, self.act.poop_count)
+   def poops(self, chat_id):
+      row = DB(chat_id)
+      poop_count = row.getCurrentPoops()
 
-      if self.act.poop_count == 0:
-         return message + "все убрано, в чате чистота и порядок"
+      message = "{}\nсейчас в чате {} какашек\n".format('💩'*poop_count, poop_count)
 
-      if self.act.poop_count < 6:
-         return message + "надо бы убраться"
+      if poop_count == 0:
+         message += "все убрано, в чате чистота и порядок"
+
+      elif poop_count < 6:
+         message += "надо бы убраться"
       
-      if self.act.poop_count < 11:
-         return message + "в чате стоит странный аромат. на полу рассыпаны какие-то коричневые штуки"
+      elif poop_count < 11:
+         message = "в чате стоит странный аромат. на полу рассыпаны какие-то коричневые штуки"
       
-      if self.act.poop_count < 21:
-         return message + "вашим мамам за вас стыдно"
+      elif poop_count < 21:
+         message += "вашим мамам за вас стыдно"
       
-      if self.act.poop_count > 20:
-         return message + "в чате появился новый коричневый массажный ковер. откуда он здесь и почему так странно пахнет?"
+      elif poop_count > 20:
+         message += "в чате появился новый коричневый массажный ковер. откуда он здесь и почему так странно пахнет?"
 
-
+      message += "\n\nкакашек за все время: {}".format(row.getPoopsByAllTime())
+      return message
+   
    # ----- poop -----
 
    def poop_interval(self):
-      #return random.randint(1, 5) #для тестов
-      return random.randint(3600, 10800) # в промежутке от часа до трех
+      return random.randint(1, 5) #для тестов
+      #return random.randint(3600, 10800) # в промежутке от часа до трех
    
    def zoomies_interval(self):
-      #return random.randint(1, 5) #для тестов
-      return random.randint(1800,3600)
+      return random.randint(1, 5) #для тестов
+      #return random.randint(1800,3600)
 
    def lucy_act(self):
       self.lucy_active = not self.lucy_active
@@ -169,20 +187,20 @@ class Commands():
       
       return "кошечка ушла спать в свой домик и больше не будет шуршать по чату"
 
-   def pooped(self):
+   def pooped(self, chat_id):
+      row = DB(chat_id)
       self.not_hungry = False
 
       poops = random.randint(1,4)
 
-      for _ in range(poops):
-         self.act.poop_increment()
-
       msg = "не так давно вы кормили кошечку\n"
       msg += en.Lucy_random.poop.value
-      msg += "\n\nстало на {} какашек больше\n".format(poops)
-      msg += self.poops()
+      msg += "\n\nв чате стало на {} какашки больше\n".format(poops)
+
+      row.addCurrentPoops(poops)
 
       return msg
+   
 
    # ----- triggers -----
 
