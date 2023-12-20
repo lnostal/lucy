@@ -1,3 +1,4 @@
+import sys
 import actions as a 
 import random
 from db import DB
@@ -172,11 +173,13 @@ class Commands():
    # ----- poop -----
 
    def poop_interval(self):
-      #return random.randint(1, 5) #для тестов
+      if sys.gettrace():
+         return random.randint(1, 5) #для тестов
       return random.randint(3600, 10800) # в промежутке от часа до трех
    
    def zoomies_interval(self):
-      #return random.randint(1, 5) #для тестов
+      if sys.gettrace():
+         return random.randint(1, 5) #для тестов
       return random.randint(1800,3600)
 
    def lucy_act(self):
