@@ -172,12 +172,12 @@ class Commands():
    # ----- poop -----
 
    def poop_interval(self):
-      return random.randint(1, 5) #для тестов
-      #return random.randint(3600, 10800) # в промежутке от часа до трех
+      #return random.randint(1, 5) #для тестов
+      return random.randint(3600, 10800) # в промежутке от часа до трех
    
    def zoomies_interval(self):
-      return random.randint(1, 5) #для тестов
-      #return random.randint(1800,3600)
+      #return random.randint(1, 5) #для тестов
+      return random.randint(1800,3600)
 
    def lucy_act(self):
       self.lucy_active = not self.lucy_active
