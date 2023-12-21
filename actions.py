@@ -13,8 +13,7 @@ class Actions():
         return var.value
 
     def get_action(self):
-        var = en.Lucy_random.poop
-        #var = random.choice(list(en.Lucy_random))
+        var = random.choice(list(en.Lucy_random))
         return var.value
 
     def get_user_action(self):
