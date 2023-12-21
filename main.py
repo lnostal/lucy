@@ -22,7 +22,7 @@ async def send_welcome(message: types.Message):
 async def send(message: types.Message):
      await message.answer(c.lucy_act())
      while (c.lucy_active):
-          await message.answer(c.act.get_action())
+          await message.answer(c.lucy_actions(message.chat.id))
           await asyncio.sleep(c.zoomies_interval())
 
 @dp.message_handler(commands=['pet']) 
