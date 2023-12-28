@@ -1,7 +1,8 @@
 import peewee
 from peewee import *
 
-db = MySQLDatabase('u1828261_lucy', user='u1828261_admin', passwd='pN7iQ3rM3zyT5rJ8', host='31.31.198.36', port=3306)
+
+db = MySQLDatabase('u1828261_lucy', user='u1828261_admin', passwd='pN7iQ3rM3zyT5rJ8', host='31.31.198.36', port=3306, autoconnect=True)
 
 class Main(peewee.Model):
     chat_id = peewee.CharField(primary_key=True)
@@ -12,12 +13,13 @@ class Main(peewee.Model):
         database = db
 
 
-
 class DB():
 
     row = Main()
 
     def __init__(self, chat_id):
+        if db.close():
+            db.connect()
         row = Main.get_or_create(chat_id=chat_id)
         self.row = row[0]
 
