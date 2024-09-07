@@ -1,8 +1,8 @@
 ## Конфигурация systemd service
 
 ```
-pip install aiogram
-pip install peewee
+pip install aiogram --break-system-packages
+pip install peewee --break-system-packages
 ```
 
 ```bash
