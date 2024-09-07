@@ -1,8 +1,11 @@
 ## Конфигурация systemd service
 
+ubuntu 22.04
+
 ```
-pip install aiogram --break-system-packages
+pip install aiogram 
 pip install peewee --break-system-packages
+pip install pymysql
 ```
 
 ```bash
